@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         //Write a function that waits for 2 seconds and then logs "Hello, Async!".
+              function sayHelloAsync() {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        console.log("Hello, Async!");
+                        resolve();
+                    }, 2000);
+                });
+            }
+            sayHelloAsync();
+
+         //Create a function that returns a fake user after 1 second using async/await.
+            async function getFakeUser() {
+                await new Promise((resolve) => 
+                setTimeout(resolve, 1000));
+                return {
+                    id: 1,
+                    name: "John Doe",
+                    email: "john.doe@example.com"
+                };
+            }
+            (async () => {
+                const user = await getFakeUser();
+                console.log(user);
+            })();
+
+         //Fetch two users one after the other and log them.
+            async function getFakeUsers(id, name) {
+                await new Promise((resolve) => 
+                setTimeout(resolve, 1000)); 
+                return { id, name, email: `${name.toLowerCase().replace(" ", ".")}@example.com` };
+            }
+            async function fetchTwoUsers() {
+                const user1 = await getFakeUsers(1, "keerthi");   
+                console.log("User 1:", user1);
+                const user2 = await getFakeUsers(2, "kani");
+                console.log("User 2:", user2);
+            }
+            fetchTwoUsers();
+
+             //Fetch two users at the same time using Promise.all
+               async function getFakeUser2(id, name) {
+                await new Promise((resolve) => setTimeout(resolve, 1000)); 
+                return { id, name, email: `${name.toLowerCase().replace(" ", ".")}@example.com` };
+            }
+            async function fetchUsersInParallel() {
+                const [user1, user2] = await Promise.all([
+                    getFakeUser2(1, "k"),
+                    getFakeUser2(2, "ke")
+                ]);
+                console.log("User 1:", user1);
+                console.log("User 2:", user2);
+            }
+            fetchUsersInParallel();
+
+            //Write an async function that throws an error if the user ID is 0
+                 async function getUserById(id) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000));
+                    if (id === 0) {
+                        throw new Error("Invalid user ID: 0");
+                    }
+                    return { id, name: "J", email: "j.@example.com" };
+                }
+                (async () => {
+                    try {
+                        const user = await getUserById(0); 
+                        console.log(user);
+                    } catch (error) {
+                        console.error("Error:", error.message);
+                    }
+                })();
+
+                //Fetch 5 users one after another in a loop.
+                   async function getFakeUser1(id) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000)); 
+                    return { id, name: `User ${id}`, email: `user${id}@example.com` };
+                }
+                async function fetchUsersSequentially() {
+                    for (let i = 1; i <= 5; i++) {
+                        const user = await getFakeUser1(i); 
+                        console.log(`User ${i}:`, user);
+                    }
+                }
+                fetchUsersSequentially();
+
+                //Use map with async/await to fetch multiple users.
+                   async function getFakeUser1(id) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000)); 
+                    if (id === 0) {
+                         throw new Error("Invalid user ID: 0");
+                        }
+                        return { id, name: `User ${id}`, email: `user${id}@example.com` };
+                    }
+                    async function fetchMultipleUsers(ids) {
+                        try {
+                            const users = await Promise.all(
+                                ids.map(async (id) => {
+                                    return await getFakeUser1(id);
+                                })
+                            );
+                            console.log("Fetched users:", users);
+                        } catch (error) {
+                            console.error("Error fetching users:", error.message);
+                        }
+                    }
+                    fetchMultipleUsers([1, 2, 3, 4, 5]);
+
+                     //Write an async function that fetches data but can be canceled manually before it finishes.
+                        function fetchDataCancelable() {
+                            let canceled = false;
+                            const promise = new Promise((resolve, reject) => {
+                                const timeout = setTimeout(() => {
+                                    if (canceled) {
+                                        reject(new Error("Fetch canceled"));
+                                     } else {
+                                        resolve("Data fetched successfully!");
+                                     }
+                                    }, 3000); 
+                                });
+                                return {
+                                     promise,
+                                     cancel: () => { canceled = true; }
+                                     };
+                                    }
+                                    const { promise, cancel } = fetchDataCancelable();
+                                    promise
+                                    .then((data) => console.log(data))
+                                    .catch((err) => console.error(err.message));
+                                    setTimeout(() => {
+                                         cancel();
+                                        }, 1000);
+
+                    
+                    //You have 10 tasks (functions that return promises). Run them one at a time in sequence, not all at once.
+                    // Keep fetching random numbers (0–9). Stop only when you get the number 7
+                      const tasks = Array.from({ length: 10 }, (_, i) => i + 1);
+                      async function getRandomUntilSeven() {
+                        let num;
+                        do {
+                            num = Math.floor(Math.random() * 10);
+                            console.log("Number:", num);
+                            await new Promise(res => setTimeout(res, 500)); 
+                        } while (num !== 7);
+                        console.log("Got 7! Continuing to next task...");
+                    }
+                    async function runTasks() {
+                        for (const task of tasks) {
+                            console.log(`Running Task ${task}`);
+                            await new Promise(res => setTimeout(res, 500)); 
+                            await getRandomUntilSeven(); 
+                        }
+                    }
+                    runTasks();
+ </script>
+</body>
+</html>

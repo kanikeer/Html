@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Live Clock</title>
+        <style>
+        body { 
+            font-family: Arial; 
+            text-align: center; 
+            padding: 50px; 
+        }
+        #clock {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        button { 
+            padding: 10px 20px; 
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Clock</h1>
+    <div id="clock">00:00:00 AM</div>
+    <button onclick="startClock()">Start</button>
+    <button onclick="stopClock()">Stop</button>
+    <button onclick="resetClock()">Reset</button>
+
+<script>
+let timer;
+function showTime() {
+    const now = new Date(); 
+    let h = now.getHours();        
+    let m = now.getMinutes();      
+    let s = now.getSeconds();       
+    let ampm = h >= 12 ? "PM" : "AM"; 
+    h = h % 12 || 12;  
+    h = h.toString().padStart(2, "0");
+    m = m.toString().padStart(2, "0");
+    s = s.toString().padStart(2, "0");
+    const date = now.toDateString(); 
+    document.getElementById("clock").textContent = `${h}:${m}:${s} ${ampm} (${date})`;
+}
+function startClock() {
+    stopClock();                    
+    timer = setInterval(showTime, 1000); 
+    showTime();                    
+}
+function stopClock() {
+  clearInterval(timer);         
+}
+
+function resetClock() {
+  stopClock();                  
+  document.getElementById("clock").textContent = "00:00:00 AM"; 
+}
+
+</script>
+
+</body>
+</html>

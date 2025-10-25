@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>closures</title>
+    </head>
+    <body>
+        <script>
+            //Counter Function
+            // Write a function createCounter that returns another function.
+            // Each call should increase and return the count.
+
+            function createCounter() {
+                let count = 0
+                return function() {
+                    count++;
+                    return count;
+                }
+            }
+            const counter1 = createCounter();
+            console.log(counter1()); 
+            console.log(counter1()); 
+            console.log(counter1()); 
+            console.log(counter1()); 
+            console.log(counter1()); 
+            console.log(counter1()); 
+
+           // Greeting Generator
+           // Create a function greet(name) that returns another function.
+           // The inner function should print "Hello, <name>!".
+
+            function greet(name) {
+                return function() {
+                    console.log("Hello,"+name+"!");
+                }
+            }
+            const counter = greet("keerthi");
+            counter();
+
+
+            //Adder Function
+            // Create a function makeAdder(x) that returns a function.
+            // The returned function should take a number y and return x + y.
+
+            function makeadder(x){
+                return function (y){
+                    return x+y;
+                }
+            }
+            const adds=makeadder(5);
+            const add1=makeadder(10);
+            console.log(adds(8));
+            console.log(add1(5));
+
+
+            //Private Bank Account
+            // Write a function createBankAccount(initialBalance) that keeps balance private.
+            // It should return an object with methods:
+            // ·         deposit(amount)
+            // ·         withdraw(amount)
+            // ·         getBalance()
+
+            function createBankAccount(initialBalance) {
+                let balance = initialBalance; 
+                return {
+                    deposit: function(amount) {
+                        if (amount > 0) {
+                            balance += amount;
+                            console.log(`Deposited: ${amount}`);
+                        } else {
+                            console.log("Invalid deposit amount");
+                        }
+                    },
+                    withdraw: function(amount) {
+                        if (amount > 0 && amount <= balance) {
+                            balance -= amount;
+                            console.log(`Withdrawn: ${amount}`);
+                        } else if (amount > balance) {
+                            console.log("Insufficient balance");
+                        } else {
+                            console.log("Invalid withdrawal amount");
+                        }
+                    },
+                    getBalance: function() {
+                         return balance;
+                        }
+                    };
+                }
+                const myAccount = createBankAccount(1000);
+                myAccount.deposit(500);        
+                myAccount.withdraw(200);       
+                console.log(myAccount.getBalance()); 
+                myAccount.withdraw(1500);      
+
+                //Once Function
+                // Implement a function once(fn) that ensures a given function fn runs only once.
+                // All later calls should return the first result.
+
+                function once(fn) {
+                    let called = false;   
+                    let result;            
+                    return function(...args) {
+                        if (!called) {
+                            result = fn(...args); 
+                            called = true;        
+                        }
+                        return result;           
+                    }
+                }
+                function add(a, b) {
+                    console.log("Function called");
+                    return a + b;
+                }
+                const addOnce = once(add);
+                console.log(addOnce(10, 3)); 
+                console.log(addOnce(5, 6)); 
+                console.log(addOnce(10, 20)); 
+                
+                
+                //Multiplier Function
+                // //Write a function multiplier(factor) that returns a function to multiply numbers by that factor.
+                
+                function multiplier(factor) {
+                    return function(number) {
+                        return number * factor;
+                    }
+                }
+                const multiplyBy2 = multiplier(2);  
+                const multiplyBy5 = multiplier(5);  
+                console.log(multiplyBy2(10)); 
+                console.log(multiplyBy2(7));  
+                console.log(multiplyBy5(3));  
+
+
+                //Todo Module (Module Pattern)
+                // Implement a TodoModule using closures with methods:
+                // ·         addTask(task)
+                // ·         removeTask(index)
+                // ·         getTasks()
+
+                const TodoModule = (function() {
+                    let tasks = []; 
+                    return {
+                        addTask: function(task) {
+                            tasks.push(task);
+                            console.log(`Task added: "${task}"`);
+                        },
+                        removeTask: function(index) {
+                            if (index >= 0 && index < tasks.length) {
+                                const removed = tasks.splice(index, 1);
+                                console.log(`Task removed: "${removed}"`);
+                            } else {
+                                console.log("Invalid index");
+                            }
+                        },
+                        getTasks: function() {
+                             return tasks.slice(); 
+                            }
+                        };
+                    })();
+                    TodoModule.addTask("Learn JS");        
+                    TodoModule.addTask("Practice coding"); 
+                    console.log(TodoModule.getTasks());    
+                    TodoModule.removeTask(0);              
+                    console.log(TodoModule.getTasks());    
+
+
+
+        </script>
+    </body>
+</html>
