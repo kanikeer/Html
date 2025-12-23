@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Write a function that creates a simple calculator (add, subtract, multiply, divide) based on user input.
+         function sum(a,b){
+                return a+b;
+            }
+        function sub(a,b){
+            return a-b;
+        }
+        function multiply(a,b){
+            return a*b;
+        }
+        function divide(a,b){
+            return a/b;
+        }
+        console.log(sum(5,7));
+        console.log(sub(5,7));
+        console.log(multiply(5,7));
+        console.log(divide(5,7));
+
+        //Write a function that finds the area of a rectangle.
+        const number=function(l,b){
+            return l*b
+        }
+        console.log(number(5,7))
+
+        //Write a function that returns the larger of two numbers.
+        function larger(a, b) {
+            return (a > b) ? a : b;
+        }
+        console.log(larger(10, 29)); 
+
+        //Write a function that converts Celsius to Fahrenheit.
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+        console.log(celsiusToFahrenheit(0));   
+        console.log(celsiusToFahrenheit(25));  
+        console.log(celsiusToFahrenheit(100)); 
+
+        //Write a function that converts hours into minutes.
+        function hoursToMinutes(hours){
+            return hours * 60 
+        }
+        console.log(hoursToMinutes(5));
+
+        //Write a function that calculates simple interest.
+        // Formula: (P × R × T) / 100
+        function simpleInterest(P, R, T) {
+            return (P * R * T) / 100;
+        }
+        console.log(simpleInterest(1000, 5, 2));
+
+
+
+    </script>
+</body>
+</html>

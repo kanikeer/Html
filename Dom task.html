@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DOM</title>
+        <style>
+            progress {
+                width: 300px;
+                height: 20px;
+            }
+            button {
+                margin-top: 10px;
+                padding: 8px 15px;
+                cursor: pointer;
+            }
+        </style>
+    </haed>
+    <body>
+        <p id="p1">I learn about js</p> 
+        <button onclick="changeText()">Change Text</button><br>
+
+        <button onclick="changeColor()">change background Color</button><br>
+
+        <input type="password"id="mypassword" placeholder="Enter your password">
+        <button onclick="togglepassword()">show/hide</button><br>
+
+        <input type="text" id="myInput" placeholder="Type something..." onkeyup="countChars()">
+        <p>Characters typed: <span id="charCount">0</span></p>
+
+        <img id="myimg"src="photo.jpg" alt="img" width="100px" height="100px">
+        <button onclick="changeimage()">Change image</button><br>
+
+        <p id="clock"></p><br>
+
+        <p id="textPara" style="font-size:16px;">This is a sample paragraph. Click the buttons below to increase or decrease its font size.</p>
+        <button onclick="changeFontSize('increase')">Increase Font</button>
+        <button onclick="changeFontSize('decrease')">Decrease Font</button><br>
+
+        <input type="color" id="colorPicker" onchange="changeBackground()">
+        <p>Selected Color: <span id="colorCode">#fa59bc</span></p>
+
+        <h2>Progress Bar Example</h2>
+        <progress id="progressBar" value="0" max="100"></progress><br>
+        <button id="increaseBtn">Increase 10%</button>
+        
+        <script>
+            //When the user clicks a button, change the text of a paragraph.
+            function changeText() {
+            let para = document.getElementById("p1");
+            para.textContent = "The paragraph text has been changed!";
+        }
+
+        // Change the background color when clicking a button.
+        function changeColor(){
+            document.body.style.backgroundColor ="pink";
+        }
+
+        //Toggle the password field visibility.
+        function togglepassword(){
+            let password=document.getElementById("mypassword");
+            if(password.type==="password"){
+                password.type="text";
+            }else{
+                password.type="password";
+            }
+        }
+
+        //Show how many characters are typed in a text box.
+        function countChars() {
+            let text = document.getElementById("myInput").value;
+            document.getElementById("charCount").textContent = text.length;
+        }
+
+        // Change the image when a button is clicked.
+        function changeimage() {
+            let img = document.getElementById("myimg");
+            img.src="n.jpg"
+        }
+
+        //Show the current time updating every second.
+        function showtime(){
+            let now=new Date();
+            let hours=now.getHours();
+            let minutes=now.getMinutes();
+            let seconds=now.getSeconds();
+            if(hours < 10) hours="0"+hours;
+            if(minutes < 10)minutes="0"+minutes;
+            if(seconds < 10)seconds="0"+seconds;
+            let currenttime=hours+":"+minutes+":"+seconds;
+            document.getElementById("clock").textContent=currenttime;
+        }
+        setInterval(showtime,1000);
+        showtime();
+
+        //Create two buttons that increase or decrease the font size of a paragraph.
+        function changeFontSize(action) {
+            const para = document.getElementById("textPara");
+            let currentSize = parseInt(para.style.fontSize);
+            if (action === "increase") {
+                para.style.fontSize = (currentSize + 2) + "px"; 
+            } else if (action === "decrease") {
+                para.style.fontSize = (currentSize - 2) + "px"; 
+            }
+        }
+
+        // Create a color input that changes the background color of the page and displays the selected color code.
+        function changeBackground() {
+            let color = document.getElementById("colorPicker").value;
+            document.body.style.backgroundColor = color;
+            document.getElementById("colorCode").textContent = color;
+        }
+
+        // Create a button that increases a progress bar value by 10% each time it’s clicked.
+        const progressBar = document.getElementById("progressBar");
+        const button = document.getElementById("increaseBtn");
+        button.addEventListener("click", () => {
+            if (progressBar.value < 100) {
+                progressBar.value += 10;  
+            }
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM1</title>
+    <style>
+        img{
+            width: 100px;
+            height: 100px;
+            transition: transform 0.3s ease;
+        }
+        img:hover{
+            transform: scale(1,2);
+        }
+        #topBtn {
+            display: none;            
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #topBtn:hover {
+            background-color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>My To-Do List </h2>
+    <input type="text" id="todoInput" placeholder="Enter a task">
+    <button onclick="addItem()">Add</button>
+    <ul id="todoList"></ul>
+
+    <h2>Enter Your Name </h2>
+    <input type="text" id="nameInput" placeholder="Type something...">
+    <button onclick="checkInput()">Submit</button>
+    <p id="errorMsg" style="color:red;"></p>
+
+    <h2>motivational quote</h2>
+    <p id="quote">click the button</p>
+    <button onclick="showrandomquote()">show quote</button>
+
+    <h1 id="timer">10</h1>
+    <button onclick="startcountdown()">startcountdown</button><br>
+
+    <img src="n.jpg" alt="img"><br>
+
+    <button id="clickBtn">Click me</button>
+  <p>You clicked <span id="count">0</span> times.</p>
+
+  <h2>Search Names</h2>
+  <input type="text" id="search" placeholder="Type to search...">
+  <ul id="nameList">
+    <li>Keerthi</li>
+    <li>kani</li>
+    <li>Divya</li>
+    <li>kavi</li>
+    <li>Priya</li>
+    <li>sri</li>
+  </ul>
+
+  <h2>Scroll Down to See the Button</h2>
+
+  <button id="topBtn">⬆ Top</button>
+
+    <script>
+        ////Add items to a list dynamically. (To-Do list)
+        function addItem() {
+            let input = document.getElementById("todoInput");
+            let task = input.value.trim();
+
+            if (task !== "") {
+                let li = document.createElement("li");
+                li.textContent = task;
+                document.getElementById("todoList").appendChild(li);
+                input.value = "";
+            } else {
+                alert("Please enter a task!");
+            }
+        }
+           //Show an error if the input is empty.
+        function checkInput() {
+            let inputValue = document.getElementById("nameInput").value.trim();
+            let error = document.getElementById("errorMsg");
+
+            if (inputValue === "") {
+                error.textContent = " Please enter something!";
+            } else {
+                error.textContent = "";
+                alert(" You entered: " + inputValue);
+            }
+        }
+
+        //  Create a button that shows a random motivational quote from an array.
+        const quotes= [
+            "Every day is a new beginning.",
+            "Dream it.Wish it.Do it.",
+            "Don't stop until you're proud."
+        ];
+        function showrandomquote(){
+            let randomindex=Math.floor(Math.random()*quotes.length);
+            document.getElementById("quote").textContent=quotes[randomindex];
+        }
+
+        //Create a 10-second countdown timer that decreases every second.
+        function startcountdown(){
+            let timeleft=10;
+            const display=document.getElementById("timer")
+            const countdown=setInterval(()=>{
+                display.textContent=timeleft;
+                timeleft--;
+                if(timeleft=0){
+                    clearInterval(countdown);
+                    display.textContent="times up";
+                }
+            },1000)
+        }
+        
+        //Create a button that shows how many times it has been clicked.
+        let count = 0;
+        const button = document.getElementById("clickBtn");
+        const display = document.getElementById("count");
+        button.addEventListener("click", () => {
+            count++;
+            display.textContent = count;
+        });
+
+    //Create a search box that filters a list of names in real-time as the user types.
+    const search = document.getElementById("search");
+    const listItems = document.querySelectorAll("#nameList li");
+
+    search.addEventListener("keyup", () => {
+      const text = search.value.toLowerCase(); 
+      listItems.forEach(item => {
+        if (item.textContent.toLowerCase().includes(text)) {
+          item.style.display = "";  
+        } else {
+          item.style.display = "none"; 
+        }
+      });
+    });
+
+    //Create a button that appears when the user scrolls down and scrolls back to the top smoothly when clicked.
+    const topBtn = document.getElementById("topBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    });
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+    </script>
+</body>
+</html>

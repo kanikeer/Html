@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo list</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                background:skyblue;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding-top: 50px;
+            }
+            .tod0-container{
+                background: #fff;
+                padding: 30px 20px;
+                width: 400px;
+                border-radius: 12px;
+            }
+            h2{
+                text-align: center;
+                margin-bottom: 20px;
+                color: #333;
+            }
+            input[type="text"]{
+                width: 70%;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid#ccc;
+                border-radius: 5px;
+            }
+            button.add-btn{
+                padding: 10px 15px;
+                border: none;
+                background: #28a745;
+                color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 15px;
+                margin-left: 5px;
+            }
+            button.add-btn:hover{
+                background: #218839;
+            }
+            ul{
+                list-style: none;
+                padding: 0;
+                margin-top: 20px;
+            }
+            li{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: #f1f1f1;
+                padding: 10px 15px;
+                margin-bottom: 10px;
+                border-radius: 6px;
+                transition: background 0.3s;
+            }
+            li:hover{
+                background: #606060;
+            }
+            li.button{
+                background: #dc3545;
+                border: none;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 13px;
+            }
+            li.button:hover{
+                background: #c82333;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tod0-container">
+        <h2>My To-Do List </h2><br>
+        <input type="text" id="todoInput" placeholder="Enter a task"><br>
+        <button onclick="addItem()">Add</button>
+        <ul id="todoList"></ul>
+        </div>
+        <script>
+            function addItem() {
+            let input = document.getElementById("todoInput");
+            let task = input.value.trim();
+
+            if (task !== "") {
+                let li = document.createElement("li");
+                li.textContent = task + " ";
+                let removeBtn = document.createElement("button")
+                removeBtn.textContent="remove";
+                removeBtn.onclick=function(){
+                    li.remove();
+                }
+                li.appendChild(removeBtn)
+                document.getElementById("todoList").appendChild(li);
+                input.value = "";
+            } else {
+                alert("Please enter a task!");
+            }
+        }
+        </script>
+    </body>
+</html>

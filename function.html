@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Function</title>
+    </head>
+    <body>
+        <script>
+            //Write a function that takes a name and prints "Hello, [name]".
+            function greet(name){
+                return "hello,"+name+"!";
+            }
+            console.log(greet("keerthi"))
+
+            //Write a function that prints "Hello, World!".
+            function greets(){
+                return "Hello,World !";
+            }
+            console.log(greets())
+
+            //Write a function that adds two numbers and returns the sum.
+            function sum(a,b){
+                return a+b;
+            }
+            console.log(sum(5,8))
+
+           // Write a function expression that multiplies two numbers.
+           const multiply=function(a,b){
+              return (a*b)
+           }
+           console.log(multiply(5,6))
+
+        //Convert the add function into an arrow function.
+          add=(number)=>number+10
+          console.log(add(10))
+
+         //Write a function that greets a user with a default name "Guest" if no name is provided.
+         function greet(name = "Guest") {
+            console.log("Hello, " + name + "!");
+        }
+        greet("Keerthi");  
+        greet();
+        
+           //Write a function that takes another function as a parameter and calls it.
+           function callFunction(fn) {
+            fn();  
+        }
+        function sayHello() {
+            console.log("Hello!");
+        }
+        callFunction(sayHello); 
+
+        //Write a function that returns another function which adds 10 to a number.
+        function createAdder() {
+            return function(number) {
+                return number + 10;
+            };
+        }
+        const addTen = createAdder();
+        console.log(addTen(5));  
+
+        //Write a function that checks whether a number is even or odd.
+        numbers=(number)=>(number%2==0 ?"even":"odd");
+        console.log(numbers(29))
+
+        //Write a function that checks if a number is positive or negative.
+        numbers=(number)=>(number>=0 ?"positive":"negative");
+        console.log(numbers(-29))
+
+        //Write a function that checks if a person is eligible to vote (age ≥ 18).
+        checkage=(age)=>(age>=18 ?"eligible":"not eligible");
+        console.log(checkage(12))
+
+        //Write a function that returns the length of a string.
+        const getlength=function(string){
+            return string.length;
+        }
+        console.log(getlength("keerthi"))
+
+        //Write a function that returns the square of a number.
+        const number=function(a){
+            return a*a
+        }
+        console.log(number(5))
+
+        //Write an IIFE that prints "IIFE executed".
+        (function(){
+            console.log("IIFE executed")
+        })();
+</script>
+    </body>
+</html>

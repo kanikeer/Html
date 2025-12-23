@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title>Promise</title>
+    <body>
+        <script>
+             //Create a Promise that resolves with "Hello, World!" after 2 seconds.
+
+             function promise(){
+                return new Promise((resolve,reject)=> {
+                    setTimeout(()=>{
+                        resolve("Hello, World!");
+                    },2000);
+                });
+            }
+            promise()
+            .then((message) => {
+                console.log(message);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+           // Create a Promise that rejects with an error "Something went wrong" after 1 second.
+
+           function promises(){
+            return new Promise((resolve,reject)=> {
+                setTimeout(()=>{
+                    reject( "Something went wrong" );
+                },1000);
+            });
+        }
+        promises()
+        .then((message) => {
+            console.log(message);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        //Create a Promise that returns a number. Chain .then() calls to:
+        // Multiply by 2,  Add 10 and Log the final result.
+
+        function number(){
+            return new Promise((resolve,reject)=> {
+                resolve(6)
+            });
+        }
+        number()
+        .then((number) => {
+            return number*2;
+        })
+        .then((number) => {
+            return number+10;
+        })
+        .then((finalresult) => {
+            console.log(finalresult);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+       // Run three promises that resolve after different times. Use Promise.all to log all results together.
+       function promise1() {
+       return new Promise((resolve, reject) => {
+       setTimeout(() => {
+             resolve("Hello, World!");
+            }, 2000);
+        });
+    }
+      function promise2() {
+        return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("World!");
+           }, 3000);
+        });
+    }
+       function promise3() {
+         return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Hello");
+          }, 4000);
+       });
+   }
+      Promise.all([promise1(), promise2(), promise3()])
+    .then((messages) => {
+        console.log(messages); 
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    //Given an array of functions that return promises, run them one by one in order, not in parallel.
+
+    function promise1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("promise1.done")
+            resolve("Hello, World!");
+        }, 2000);
+    });
+}
+
+function promise2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("promise2.done")
+            resolve("World!");
+        }, 3000);
+    });
+}
+
+function promise3() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("promise3.done")
+            resolve("Hello");
+        }, 4000);
+    });
+}
+let sequence = Promise.resolve();
+[ promise1, promise2, promise3 ].forEach(task => {
+    sequence = sequence
+        .then(() => task())        
+        .then(result => console.log("Result:", result));  
+});
+
+   // Check username & password using a promise.
+      function checklogin(username,password) {
+        return new Promise((resolve,reject) => {
+            const correctuser="keerthi";
+            const correctpass="12345"
+            setTimeout(() => {
+                if(username===correctuser&& password=== correctpass){
+                    resolve("username and password is crt" + username)
+                }else{
+                     reject("username and password is incorrect")
+        }
+    },2000)
+});
+}
+checklogin("keerthi", "12345")
+.then((message) => {
+        console.log(message); 
+    })
+    .catch((error) => {
+        console.log(error);   
+    });
+
+ //Start with a number 5. Double it → subtract 3 → multiply by 4.
+    function number(){
+            return new Promise((resolve,reject)=> {
+                resolve(5)
+            });
+        }
+        number()
+        .then((number) => {
+            return number*2;
+        })
+        .then((number) => {
+            return number-3;
+        })
+        .then((number) => {
+            return number*4;
+        })
+        .then((finalresult) => {
+            console.log(finalresult);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        //Write a function that simulates saving data to DB.
+
+        function saveTodb(data){
+            return new Promise((resolve,reject) => {
+                console.log("saving data to the database...");
+                setTimeout (()=>{
+                    if(data){
+                        resolve("data saved sucessfully")
+                    }else{
+                        reject("data doesnot saved sucessfully")
+                    }
+                 },2000)
+                })
+            }
+            saveTodb({id:1,name:"keerthi"})
+            .then((message) => {
+                console.log(message); 
+            })
+            .catch((error) => {
+                console.log(error);   
+            });
+
+            //Write a function where a promise resolves when the upload is complete.
+
+            function data(data){
+                return new Promise((resolve,reject) => {
+                    console.log("uploading data")
+                    setTimeout (()=>{
+                        if(data){
+                            resolve("upload is complete")
+                        }else{
+                            reject("upload is incomplete")
+                        }
+                    },2000)
+                })
+            }
+            data({id:1,name:"keerthi"})
+            .then((message) => {
+                console.log(message); 
+            })
+            .catch((error) => {
+                console.log(error);   
+            });
+
+             //Simulate payment verification with a promise.
+
+             function payment(data){
+                return new Promise((resolve,reject) => {
+                    console.log("payment processing")
+                    setTimeout (()=>{
+                        if (data && data.id && data.name){
+                            resolve("payment is verified")
+                        }else{
+                            reject("payment is not verified")
+                        }
+                    },2000)
+                })
+            }
+            payment({id:1,name:"keerthi"})
+            .then((message) => {
+                console.log(message); 
+            })
+            .catch((error) => {
+                console.log(error);   
+            });
+
+            //App starts only after config is loaded. Use it in promise.
+
+            function App(data){
+                return new Promise((resolve,reject) => {
+                    console.log("config processing")
+                    setTimeout (()=>{
+                        if (App){
+                            resolve("config is loaded")
+                        }else{
+                            reject("config is not loaded")
+                        }
+                    },2000)
+                })
+            }
+            App({id:1,name:"keerthi"})
+            .then((message) => {
+                console.log(message)
+                console.log("starting the app")
+            })
+            .catch((error) => {
+                console.log(error);   
+            });
+
+            //Wrap image loading inside a promise.
+            
+               function loadImage(url) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.addEventListener('load', () => {
+                        resolve(img); 
+                    });
+                    img.addEventListener('error', () => {
+                        reject(new Error(`Failed to load image from URL: ${url}`)); 
+                    });
+                    img.src = url;
+                });
+            }
+            loadImage('n.jpg')
+            .then(loadedImage => {
+                console.log('Image loaded successfully:', loadedImage);
+                document.body.appendChild(loadedImage); 
+            })
+            .catch(error => {
+                console.error('Error loading image:', error);
+            });
+
+            //Process tasks in sequence using promises.
+                function process(data){
+                    return new Promise((resolve,reject) => {
+                        console.log("task processing")
+                        setTimeout (()=>{
+                            if (data && data.id && data.name){
+                                resolve("task is process")
+                            }else{
+                                reject("task is not process")
+                            }
+                        },2000)
+                    })
+                }
+                process({id:1, name:"keerthi"})
+                .then(() => process({id:2, name:"kani"}))
+                .then(() => process({id:3, name:"kavi"}))
+                .then(() => console.log("All tasks done"))
+                .catch(err => console.log("Error:", err));
+
+            // Given 10 promises but allow only 3 running at the same time.
+            function limitConcurrency(tasks, limit) {
+                let index = 0;            
+                let active = 0;           
+                const results = new Array(tasks.length);
+                return new Promise((resolve, reject) => {
+                    function runNext() {
+                        if (index >= tasks.length && active === 0) {
+                            resolve(results);
+                            return;
+                        }
+                        while (active < limit && index < tasks.length) {
+                            const currentIndex = index++;
+                            active++;
+                            tasks[currentIndex]()
+                            .then(res => {
+                                results[currentIndex] = res;
+                            })
+                            .catch(err => {
+                                results[currentIndex] = err;
+                            })
+                            .finally(() => {
+                                active--;
+                                runNext(); 
+                            });
+                        }
+                    }
+                    runNext(); 
+                });
+            }
+            function makeTask(id) {
+                return () => new Promise((resolve) => {
+                    const delay = Math.floor(Math.random() * 2000) + 500;
+                    console.log('Starting task', id);
+                    setTimeout(() => {
+                        console.log('Finished task', id);
+                        resolve('Result of task ' + id);
+                    }, delay);
+                });
+            }
+            const tasks = Array.from({ length: 10 }, (_, i) => makeTask(i + 1));
+            limitConcurrency(tasks, 3)
+            .then(results => {
+                 console.log('All done:', results);
+                });
+
+
+</script>
+    </body>
+</html>
